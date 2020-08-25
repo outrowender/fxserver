@@ -1,0 +1,7 @@
+cache
+server-data/cache/
+server-data/server.cfg
+server-data/resources/\[local\]/
+server/citizen/system_resources/
+server/citizen/scripting/rpc_natives.json
+*.cfg
