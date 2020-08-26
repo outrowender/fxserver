@@ -1,7 +1,7 @@
 # cfx-server-data
 _Server boilerplate by outrowender_
 
-# to run
+# Start in localhost
 
 1. In root folder:
 ```cd .\server-data\ && .\..\server\FXServer.exe +exec .\..\server-data\server.cfg```
