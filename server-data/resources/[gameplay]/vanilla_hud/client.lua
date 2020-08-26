@@ -6,14 +6,14 @@ local screenPosY = 0.882                    -- Y coordinate (top left corner of 
 local enableController = true               -- Enable controller inputs
 
 -- SPEEDOMETER PARAMETERS
-local speedLimit = 100.0                    -- Speed limit for changing speed color
+local speedLimit = 160.0                    -- Speed limit for changing speed color
 local speedColorText = {255, 255, 255}      -- Color used to display speed label text
 local speedColorUnder = {255, 255, 255}     -- Color used to display speed when under speedLimit
 local speedColorOver = {255, 96, 96}        -- Color used to display speed when over speedLimit
 
 -- FUEL PARAMETERS
 local fuelShowPercentage = true             -- Show fuel as a percentage (disabled shows fuel in liters)
-local fuelWarnLimit = 25.0                  -- Fuel limit for triggering warning color
+local fuelWarnLimit = 15.0                  -- Fuel limit for triggering warning color
 local fuelColorText = {255, 255, 255}       -- Color used to display fuel text
 local fuelColorOver = {255, 255, 255}       -- Color used to display fuel when good
 local fuelColorUnder = {255, 96, 96}        -- Color used to display fuel warning
@@ -37,8 +37,97 @@ local locationAlwaysOn = false              -- Always display location and time
 local locationColorText = {255, 255, 255}   -- Color used to display location and time
 
 -- Lookup tables for direction and zone
-local directions = { [0] = 'N', [1] = 'NW', [2] = 'W', [3] = 'SW', [4] = 'S', [5] = 'SE', [6] = 'E', [7] = 'NE', [8] = 'N' } 
-local zones = { ['AIRP'] = "Los Santos International Airport", ['ALAMO'] = "Alamo Sea", ['ALTA'] = "Alta", ['ARMYB'] = "Fort Zancudo", ['BANHAMC'] = "Banham Canyon Dr", ['BANNING'] = "Banning", ['BEACH'] = "Vespucci Beach", ['BHAMCA'] = "Banham Canyon", ['BRADP'] = "Braddock Pass", ['BRADT'] = "Braddock Tunnel", ['BURTON'] = "Burton", ['CALAFB'] = "Calafia Bridge", ['CANNY'] = "Raton Canyon", ['CCREAK'] = "Cassidy Creek", ['CHAMH'] = "Chamberlain Hills", ['CHIL'] = "Vinewood Hills", ['CHU'] = "Chumash", ['CMSW'] = "Chiliad Mountain State Wilderness", ['CYPRE'] = "Cypress Flats", ['DAVIS'] = "Davis", ['DELBE'] = "Del Perro Beach", ['DELPE'] = "Del Perro", ['DELSOL'] = "La Puerta", ['DESRT'] = "Grand Senora Desert", ['DOWNT'] = "Downtown", ['DTVINE'] = "Downtown Vinewood", ['EAST_V'] = "East Vinewood", ['EBURO'] = "El Burro Heights", ['ELGORL'] = "El Gordo Lighthouse", ['ELYSIAN'] = "Elysian Island", ['GALFISH'] = "Galilee", ['GOLF'] = "GWC and Golfing Society", ['GRAPES'] = "Grapeseed", ['GREATC'] = "Great Chaparral", ['HARMO'] = "Harmony", ['HAWICK'] = "Hawick", ['HORS'] = "Vinewood Racetrack", ['HUMLAB'] = "Humane Labs and Research", ['JAIL'] = "Bolingbroke Penitentiary", ['KOREAT'] = "Little Seoul", ['LACT'] = "Land Act Reservoir", ['LAGO'] = "Lago Zancudo", ['LDAM'] = "Land Act Dam", ['LEGSQU'] = "Legion Square", ['LMESA'] = "La Mesa", ['LOSPUER'] = "La Puerta", ['MIRR'] = "Mirror Park", ['MORN'] = "Morningwood", ['MOVIE'] = "Richards Majestic", ['MTCHIL'] = "Mount Chiliad", ['MTGORDO'] = "Mount Gordo", ['MTJOSE'] = "Mount Josiah", ['MURRI'] = "Murrieta Heights", ['NCHU'] = "North Chumash", ['NOOSE'] = "N.O.O.S.E", ['OCEANA'] = "Pacific Ocean", ['PALCOV'] = "Paleto Cove", ['PALETO'] = "Paleto Bay", ['PALFOR'] = "Paleto Forest", ['PALHIGH'] = "Palomino Highlands", ['PALMPOW'] = "Palmer-Taylor Power Station", ['PBLUFF'] = "Pacific Bluffs", ['PBOX'] = "Pillbox Hill", ['PROCOB'] = "Procopio Beach", ['RANCHO'] = "Rancho", ['RGLEN'] = "Richman Glen", ['RICHM'] = "Richman", ['ROCKF'] = "Rockford Hills", ['RTRAK'] = "Redwood Lights Track", ['SANAND'] = "San Andreas", ['SANCHIA'] = "San Chianski Mountain Range", ['SANDY'] = "Sandy Shores", ['SKID'] = "Mission Row", ['SLAB'] = "Stab City", ['STAD'] = "Maze Bank Arena", ['STRAW'] = "Strawberry", ['TATAMO'] = "Tataviam Mountains", ['TERMINA'] = "Terminal", ['TEXTI'] = "Textile City", ['TONGVAH'] = "Tongva Hills", ['TONGVAV'] = "Tongva Valley", ['VCANA'] = "Vespucci Canals", ['VESP'] = "Vespucci", ['VINE'] = "Vinewood", ['WINDF'] = "Ron Alternates Wind Farm", ['WVINE'] = "West Vinewood", ['ZANCUDO'] = "Zancudo River", ['ZP_ORT'] = "Port of South Los Santos", ['ZQ_UAR'] = "Davis Quartz" }
+local zones = { 
+    ['AIRP'] = "Los Santos International Airport", 
+    ['ALAMO'] = "Alamo Sea", 
+    ['ALTA'] = "Alta", 
+    ['ARMYB'] = "Fort Zancudo", 
+    ['BANHAMC'] = "Banham Canyon Dr", 
+    ['BANNING'] = "Banning", 
+    ['BEACH'] = "Vespucci Beach", 
+    ['BHAMCA'] = "Banham Canyon", 
+    ['BRADP'] = "Braddock Pass", 
+    ['BRADT'] = "Braddock Tunnel", 
+    ['BURTON'] = "Burton", 
+    ['CALAFB'] = "Calafia Bridge", 
+    ['CANNY'] = "Raton Canyon", 
+    ['CCREAK'] = "Cassidy Creek",
+    ['CHAMH'] = "Chamberlain Hills", 
+    ['CHIL'] = "Vinewood Hills", 
+    ['CHU'] = "Chumash", 
+    ['CMSW'] = "Chiliad Mountain State Wilderness", 
+    ['CYPRE'] = "Cypress Flats", 
+    ['DAVIS'] = "Davis", 
+    ['DELBE'] = "Del Perro Beach", 
+    ['DELPE'] = "Del Perro", 
+    ['DELSOL'] = "La Puerta", 
+    ['DESRT'] = "Grand Senora Desert", 
+    ['DOWNT'] = "Downtown", 
+    ['DTVINE'] = "Downtown Vinewood", 
+    ['EAST_V'] = "East Vinewood", 
+    ['EBURO'] = "El Burro Heights", 
+    ['ELGORL'] = "El Gordo Lighthouse", 
+    ['ELYSIAN'] = "Elysian Island", 
+    ['GALFISH'] = "Galilee", 
+    ['GOLF'] = "GWC and Golfing Society", 
+    ['GRAPES'] = "Grapeseed", 
+    ['GREATC'] = "Great Chaparral", 
+    ['HARMO'] = "Harmony", 
+    ['HAWICK'] = "Hawick", 
+    ['HORS'] = "Vinewood Racetrack", 
+    ['HUMLAB'] = "Humane Labs and Research", 
+    ['JAIL'] = "Bolingbroke Penitentiary", 
+    ['KOREAT'] = "Little Seoul", 
+    ['LACT'] = "Land Act Reservoir", 
+    ['LAGO'] = "Lago Zancudo", 
+    ['LDAM'] = "Land Act Dam", 
+    ['LEGSQU'] = "Legion Square", 
+    ['LMESA'] = "La Mesa", 
+    ['LOSPUER'] = "La Puerta", 
+    ['MIRR'] = "Mirror Park", 
+    ['MORN'] = "Morningwood", 
+    ['MOVIE'] = "Richards Majestic", 
+    ['MTCHIL'] = "Mount Chiliad", 
+    ['MTGORDO'] = "Mount Gordo", 
+    ['MTJOSE'] = "Mount Josiah", 
+    ['MURRI'] = "Murrieta Heights", 
+    ['NCHU'] = "North Chumash", 
+    ['NOOSE'] = "N.O.O.S.E", 
+    ['OCEANA'] = "Pacific Ocean", 
+    ['PALCOV'] = "Paleto Cove", 
+    ['PALETO'] = "Paleto Bay", 
+    ['PALFOR'] = "Paleto Forest", 
+    ['PALHIGH'] = "Palomino Highlands", 
+    ['PALMPOW'] = "Palmer-Taylor Power Station", 
+    ['PBLUFF'] = "Pacific Bluffs", 
+    ['PBOX'] = "Pillbox Hill", 
+    ['PROCOB'] = "Procopio Beach", 
+    ['RANCHO'] = "Rancho", 
+    ['RGLEN'] = "Richman Glen", 
+    ['RICHM'] = "Richman", 
+    ['ROCKF'] = "Rockford Hills", 
+    ['RTRAK'] = "Redwood Lights Track", 
+    ['SANAND'] = "San Andreas", 
+    ['SANCHIA'] = "San Chianski Mountain Range", 
+    ['SANDY'] = "Sandy Shores", 
+    ['SKID'] = "Mission Row", 
+    ['SLAB'] = "Stab City", 
+    ['STAD'] = "Maze Bank Arena", 
+    ['STRAW'] = "Strawberry", 
+    ['TATAMO'] = "Tataviam Mountains", 
+    ['TERMINA'] = "Terminal", 
+    ['TEXTI'] = "Textile City", 
+    ['TONGVAH'] = "Tongva Hills", 
+    ['TONGVAV'] = "Tongva Valley", 
+    ['VCANA'] = "Vespucci Canals", 
+    ['VESP'] = "Vespucci", 
+    ['VINE'] = "Vinewood", 
+    ['WINDF'] = "Ron Alternates Wind Farm", 
+    ['WVINE'] = "West Vinewood", 
+    ['ZANCUDO'] = "Zancudo River", 
+    ['ZP_ORT'] = "Port of South Los Santos", 
+    ['ZQ_UAR'] = "Davis Quartz" 
+}
 
 -- Globals
 local pedInVeh = false
@@ -150,16 +239,16 @@ Citizen.CreateThread(function()
                 -- Draw fuel gauge
                 local fuelColor = (currentFuel >= fuelWarnLimit) and fuelColorOver or fuelColorUnder
                 drawTxt(("%.3d"):format(math.ceil(currentFuel)), 2, fuelColor, 0.8, screenPosX + 0.055, screenPosY + 0.000)
-                drawTxt("FUEL", 2, fuelColorText, 0.4, screenPosX + 0.085, screenPosY + 0.018)
+                drawTxt("GAS", 2, fuelColorText, 0.4, screenPosX + 0.085, screenPosY + 0.018)
 
                 -- Draw cruise control status
                 local cruiseColor = cruiseIsOn and cruiseColorOn or cruiseColorOff
-                drawTxt("CRUISE", 2, cruiseColor, 0.4, screenPosX + 0.040, screenPosY + 0.048)
+                drawTxt("CTRL", 2, cruiseColor, 0.4, screenPosX + 0.040, screenPosY + 0.048)
 
                 -- Draw seatbelt status if not a motorcyle
                 if vehicleClass ~= 8 then
                     local seatbeltColor = seatbeltIsOn and seatbeltColorOn or seatbeltColorOff
-                    drawTxt("SEATBELT", 2, seatbeltColor, 0.4, screenPosX + 0.080, screenPosY + 0.048)
+                    drawTxt("SEAT", 2, seatbeltColor, 0.4, screenPosX + 0.080, screenPosY + 0.048)
                 end
             end
         end
@@ -180,15 +269,11 @@ Citizen.CreateThread(function()
             local minute = GetClockMinutes()
             timeText = ("%.2d"):format((hour == 0) and 12 or hour) .. ":" .. ("%.2d"):format( minute) .. ((hour < 12) and " AM" or " PM")
 
-            -- Get heading and zone from lookup tables and street name from hash
-            local heading = directions[math.floor((GetEntityHeading(player) + 22.5) / 45.0)]
             local zoneNameFull = zones[GetNameOfZone(position.x, position.y, position.z)]
             local streetName = GetStreetNameFromHashKey(GetStreetNameAtCoord(position.x, position.y, position.z))
             
             -- Update location text string
-            locationText = heading
-            locationText = (streetName == "" or streetName == nil) and (locationText) or (locationText .. " | " .. streetName)
-            locationText = (zoneNameFull == "" or zoneNameFull == nil) and (locationText) or (locationText .. " | " .. zoneNameFull)
+            locationText = streetName.." | "..zoneNameFull
 
             -- Update fuel when in a vehicle
             if pedInVeh then
