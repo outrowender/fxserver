@@ -34,3 +34,11 @@ existing ones - anything goes, as long as you make sure to:
 3. Use best practices (convars over config files, native commands wherever possible, etc.)
 
 Modifying or rewriting existing resources in this repository for local use only is _strongly_ discouraged.
+
+## Credits
+
+Entire code or some part of:
+
+HUD:
+* https://github.com/bepo13/FiveM-SimpleCarHUD
+* https://github.com/KlibrDM/noradar_speedometer
