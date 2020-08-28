@@ -4,7 +4,8 @@ _Server boilerplate by outrowender_
 # Start in localhost
 
 1. In root folder:
-```cd .\server-data\ && .\..\server\FXServer.exe +exec .\..\server-data\server.cfg```
+Windows:
+```win-server\FXServer.exe +exec server.cfg```
 
 ## Usage
 1. Make sure to `git clone`. Don't "Download ZIP", as that'll make it _much_ harder to update to newer versions.

@@ -3,9 +3,11 @@ FROM alpine:latest
 RUN apk add --no-cache ca-certificates curl
 RUN curl https://runtime.fivem.net/artifacts/fivem/build_proot_linux/master/2431-350dd7bd5c0176216c38625ad5b1108ead44674d/fx.tar.xz | tar xJ -C /srv
 
-WORKDIR /srv
+WORKDIR /fivem
+
+COPY / /fivem
 
 EXPOSE 30120/tcp 30120/udp
 
 ENTRYPOINT ["sh", "/srv/run.sh"]
-CMD ["+exec", "./server.cfg"]
+CMD ["+exec", "server.cfg"]
