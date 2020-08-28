@@ -157,10 +157,7 @@ Citizen.CreateThread(function()
         local vehicle = GetVehiclePedIsIn(player, false)
         local playerHealth = GetEntityHealth(player, false) - 100
         local playerArmour = GetPedArmour(player)
-
-        local cruiseColor = cruiseIsOn and cruiseColorOn or cruiseColorOff
-        drawTxt(playerHealth, 2, cruiseColor, 0.4, screenPosX + 0.035, screenPosY + 0.048)
-
+       
         -- Set vehicle states
         if IsPedInAnyVehicle(player, false) then
             pedInVeh = true
