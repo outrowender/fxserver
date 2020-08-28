@@ -36,6 +36,9 @@ local cruiseColorOff = {255, 255, 255}      -- Color used when seatbelt is off
 local locationAlwaysOn = true              -- Always display location and time
 local locationColorText = {255, 255, 255}   -- Color used to display location and time
 
+--STATUS BARS LOCATION
+local background = {0.085, 0.975, 0.1410, 0.016}
+
 -- Lookup tables for direction and zone
 local zones = { 
     ['AIRP'] = "Los Santos International Airport", 
@@ -152,6 +155,11 @@ Citizen.CreateThread(function()
         local player = GetPlayerPed(-1)
         local position = GetEntityCoords(player)
         local vehicle = GetVehiclePedIsIn(player, false)
+        local playerHealth = GetEntityHealth(player, false) - 100
+        local playerArmour = GetPedArmour(player)
+
+        local cruiseColor = cruiseIsOn and cruiseColorOn or cruiseColorOff
+        drawTxt(playerHealth, 2, cruiseColor, 0.4, screenPosX + 0.035, screenPosY + 0.048)
 
         -- Set vehicle states
         if IsPedInAnyVehicle(player, false) then
@@ -162,6 +170,13 @@ Citizen.CreateThread(function()
             cruiseIsOn = false
             seatbeltIsOn = false
         end
+
+        DrawRect(background[1], background[2], background[3], background[4], 0, 0, 0, 255) --background grey
+
+        if not IsPedDeadOrDying(player, 1) then            
+            DrawRect(background[1]-0.036, background[2], background[3]-0.0725, background[4]-0.0075, 77, 144, 78, 50)
+            drawProgressBar(background[1]-0.036, background[2], background[3]-0.0725, background[4]-0.0075, {77, 144, 78, 255}, playerHealth) --life pregressbar
+        end
         
         -- Display Location and time when in any vehicle or on foot (if enabled)
         if pedInVeh or locationAlwaysOn then
@@ -170,7 +185,7 @@ Citizen.CreateThread(function()
             
             -- Display heading, street name and zone when possible
             drawTxt(locationText, 4, locationColorText, 0.5, screenPosX, screenPosY + 0.075)
-        
+
             -- Display remainder of HUD when engine is on and vehicle is not a bicycle
             local vehicleClass = GetVehicleClass(vehicle)
             if pedInVeh and GetIsVehicleEngineRunning(vehicle) and vehicleClass ~= 13 then
@@ -225,21 +240,13 @@ Citizen.CreateThread(function()
                 if ShouldUseMetricMeasurements() then
                     -- Get vehicle speed in KPH and draw speedometer
                     local speed = currSpeed*3.6
-                    local speedColor = (speed >= speedLimit) and speedColorOver or speedColorUnder
-                    drawTxt(("%.3d"):format(math.ceil(speed)), 2, speedColor, 0.8, screenPosX + 0.000, screenPosY + 0.000)
-                    drawTxt("KPH", 2, speedColorText, 0.4, screenPosX + 0.030, screenPosY + 0.018)
-                else
-                    -- Get vehicle speed in MPH and draw speedometer
-                    local speed = currSpeed*2.23694
-                    local speedColor = (speed >= speedLimit) and speedColorOver or speedColorUnder
-                    drawTxt(("%.3d"):format(math.ceil(speed)), 2, speedColor, 0.8, screenPosX + 0.000, screenPosY + 0.000)
-                    drawTxt("MPH", 2, speedColorText, 0.4, screenPosX + 0.030, screenPosY + 0.018)
+                    drawTxt(("%.3d"):format(math.ceil(speed)), 2, speedColorText, 0.8, screenPosX - 0.050, screenPosY + 0.040)
+                    drawTxt("KPH", 2, speedColorText, 0.3, screenPosX - 0.0220, screenPosY + 0.0625)
                 end
-                
+
                 -- Draw fuel gauge
-                local fuelColor = (currentFuel >= fuelWarnLimit) and fuelColorOver or fuelColorUnder
-                drawTxt(("%.3d"):format(math.ceil(currentFuel)), 2, fuelColor, 0.8, screenPosX + 0.055, screenPosY + 0.000)
-                drawTxt("GAS", 2, fuelColorText, 0.4, screenPosX + 0.085, screenPosY + 0.018)
+                DrawRect(background[1]+0.054, background[2], background[3]-0.109, background[4]-0.0075, 144, 144, 0, 50)
+                drawProgressBar(background[1]+0.054, background[2], background[3]-0.109, background[4]-0.0075, {144, 144, 0, 255}, currentFuel) --gas progressbar
 
                 -- Draw cruise control status
                 local cruiseColor = cruiseIsOn and cruiseColorOn or cruiseColorOff
@@ -251,31 +258,17 @@ Citizen.CreateThread(function()
                     drawTxt("SEAT", 2, seatbeltColor, 0.4, screenPosX + 0.060, screenPosY + 0.048)
                 end
 
-                if DoesEntityExist(GetPlayerPed(-1)) then
-                    DisplayRadar(true)
-                end
+                DrawRect(background[1]+0.01855, background[2], background[3]-0.109, background[4]-0.0075, 33, 78, 106, 50)
+                drawProgressBar(background[1]+0.01855, background[2], background[3]-0.109, background[4]-0.0075, {33, 78, 106, 255}, playerArmour) --armour progressbar
 
-            else
-                if DoesEntityExist(GetPlayerPed(-1)) then
-                    DisplayRadar(false)
-                    if not IsPedDeadOrDying(GetPlayerPed(-1), 1) then --No health bar for you if you're dead
-                        local playerHealth = GetEntityHealth(GetPlayerPed(-1))-100 --We substract 100 because GTA has a weird system in which the health goes from 100 to 200
-                        local playerArmour = GetPedArmour(GetPlayerPed(-1)) --Isn't ARMOR the right word? *Triggering brits*
+                DisplayRadar(true)
 
-                        local life = {0.050, 0.975, 0.0690, 0.0085} -- x, y, width, height
-                        local armor = {0.120, 0.975, 0.0690, 0.0085}
+            else --engine not running
 
-                        DrawRect(0.085, 0.975, 0.140, 0.016, 0, 0, 0, 150) --background grey
-
-                        DrawRect(life[1], life[2], life[3], life[4], 77, 144, 78, 50)
-                        DrawRect(armor[1], armor[2], armor[3], armor[4], 33, 78, 106, 50)
-
-                        drawProgressBar(life[1], life[2], life[3], life[4], {77, 144, 78, 255}, playerHealth) --life pregressbar
-                        drawProgressBar(armor[1], armor[2], armor[3], armor[4], {33, 78, 106, 255}, playerArmour) --armour progressbar
-                    end
-
-                end
-
+                DrawRect(background[1]+0.036, background[2], background[3]-0.0725, background[4]-0.0075, 33, 78, 106, 50)
+                drawProgressBar(background[1]+0.036, background[2], background[3]-0.0725, background[4]-0.0075, {33, 78, 106, 255}, playerArmour) --armour progressbar
+              
+                DisplayRadar(false)
             end
         end
     end
@@ -326,6 +319,14 @@ end)
 
 -- Helper function to draw progressbar to screen
 function drawProgressBar(x, y, width, height, colour, percent)
+
+    if percent > 100 then
+        percent = 100
+    end
+
+    if percent < 0 then
+        percent = 0
+    end
 
     local w = width * (percent/100)
 
