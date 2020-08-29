@@ -4,4 +4,6 @@ docker-compose.yaml
 win-server
 server.example.cfg
 README.md
+docker-compose.yml
 .gitignore
+.git
