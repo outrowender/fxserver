@@ -2,6 +2,9 @@ version: '3'
 
 services:
   fivem:
+    build:
+      context: .
+      dockerfile: Dockerfile
     image: outrowender/fivem:latest
     container_name: fivem
     restart: on-failure
