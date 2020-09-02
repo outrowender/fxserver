@@ -13,10 +13,10 @@ jobs:
       - name: Deploy to Amazon ECS
         uses: LGB-PUB/aws-ssm-send-command@1.0.2
         with:
-          # AWS secret access key
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           # AWS access key id
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}          
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          # AWS secret access key
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
           # Where EC2 instance is
           aws-region: sa-east-1c
           # AWS EC2 Instance id or ids
