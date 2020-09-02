@@ -8,6 +8,7 @@
 # Start
 
 1. In root folder:
+
 Windows:
 ```win-server\FXServer.exe +exec server.cfg```
 
