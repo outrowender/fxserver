@@ -18,7 +18,7 @@ jobs:
           # AWS secret access key
           aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
           # Where EC2 instance is
-          aws-region: sa-east-1
+          aws-region: sa-east-1c
           # AWS EC2 Instance id or ids
           instance-ids: ${{ secrets.AWS_EC2_INSTANCE_ID }}
           # Bash command you want to execute
