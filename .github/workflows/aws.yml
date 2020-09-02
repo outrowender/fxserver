@@ -35,5 +35,5 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           host: ${{ secrets.SSH_HOST }}
           username: ubuntu
-          source: "README.md,server.cfg"
-          target: "test"
+          source: "server.cfg, resources/"
+          target: "fivem"
