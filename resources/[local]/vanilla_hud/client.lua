@@ -287,7 +287,7 @@ Citizen.CreateThread(function()
             local minute = GetClockMinutes()
             timeText = ("%.2d"):format((hour == 0) and 12 or hour) .. ":" .. ("%.2d"):format( minute) .. ((hour < 12) and " AM" or " PM")
 
-            local zoneNameFull = zones[GetNameOfZone(position.x, position.y, position.z)]
+            local zoneNameFull = zones[GetNameOfZone(position.x, position.y, position.z)] or ''
             local streetName = GetStreetNameFromHashKey(GetStreetNameAtCoord(position.x, position.y, position.z))
             
             -- Update location text string
