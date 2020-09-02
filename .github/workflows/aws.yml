@@ -22,7 +22,7 @@ jobs:
           # AWS EC2 Instance id or ids
           instance-ids: ${{ secrets.AWS_EC2_INSTANCE_ID }}
           # Bash command you want to execute
-          command: mkdir /fivem # optional, default is echo $(date) >> logs.txt
+          command: mkdir /home/ubuntu/fivem # optional, default is echo $(date) >> logs.txt
           # Command execution location
           working-directory: /home/ubuntu/fivem # optional, default is /home/ubuntu
           # Comment for Send-Command
