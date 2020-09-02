@@ -20,7 +20,7 @@ jobs:
           # Where EC2 instance is
           aws-region: sa-east-1
           # AWS EC2 Instance id or ids
-          instance-ids: ${{ secrets.AWS_EC2_INSTANCE_ID }}
+          instance-ids: teste
           # Bash command you want to execute
           command: mkdir /fivem # optional, default is echo $(date) >> logs.txt
           # Command execution location
