@@ -847,7 +847,7 @@ function OpenApp(app)
 			end
 		end
 
-		Notification("This app is not [yet?] implemented.", 5000)
+		Notification("Esse app ainda não faz isso!", 5000)
 
 		currentApp = 1
 		return
