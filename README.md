@@ -6,6 +6,8 @@ _Server boilerplate by outrowender_
 1. In root folder:
 Windows:
 ```win-server\FXServer.exe +exec server.cfg```
+Docker:
+```docker-compose up -d```
 
 ## Usage
 1. Make sure to `git clone`. Don't "Download ZIP", as that'll make it _much_ harder to update to newer versions.
