@@ -10,6 +10,16 @@ jobs:
     name: Deploy
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@master
+      - name: Copy files via ssh
+        uses: appleboy/scp-action@master
+        with:
+          key: ${{ secrets.SSH_KEY }}
+          host: ${{ secrets.SSH_HOST }}
+          username: ubuntu
+          source: "*"
+          target: "fivem"
+
       - name: Deploy to Amazon EC2
         uses: peterkimzz/aws-ssm-send-command@1.0.4
         with:
@@ -22,18 +32,8 @@ jobs:
           # AWS EC2 Instance id or ids
           instance-ids: ${{ secrets.AWS_EC2_INSTANCE_ID }}
           # Bash command you want to execute
-          command: mkdir /home/ubuntu/fivem # optional, default is echo $(date) >> logs.txt
+          command: sudo docker-compose down && sudo docker-compose up -d
           # Command execution location
           working-directory: /home/ubuntu/fivem # optional, default is /home/ubuntu
           # Comment for Send-Command
-          comment: ${{ github.sha }} # optional, default is Executed by Github Action
-
-      - uses: actions/checkout@master
-      - name: copy file via scp
-        uses: appleboy/scp-action@master
-        with:
-          key: ${{ secrets.SSH_KEY }}
-          host: ${{ secrets.SSH_HOST }}
-          username: ubuntu
-          source: "*"
-          target: "fivem"
+          comment: Deploy with commit ${{ github.sha }} on master # optional, default is Executed by Github Action
