@@ -3,11 +3,7 @@ fx_version 'bodacious'
 games {'gta5'}
 
 -- Resource stuff
-name 'vMenu'
-description 'Server sided trainer for FiveM with custom permissions, using a custom MenuAPI. More info can be found at www.vespura.com/fivem'
-version 'v3.2.1'
-author 'Tom Grobbe'
-url 'https://github.com/TomGrobbe/vMenu/'
+name 'vChat'
 
 -- Adds additional logging, useful when debugging issues.
 client_debug_mode 'false'
