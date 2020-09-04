@@ -3,7 +3,7 @@ fx_version 'bodacious'
 games {'gta5'}
 
 -- Resource stuff
-name 'vChat'
+name 'vChar'
 
 -- Adds additional logging, useful when debugging issues.
 client_debug_mode 'false'
@@ -20,5 +20,5 @@ files {
     'config/locations.json',
     'config/addons.json',
 }
-client_script 'vMenuClient.net.dll'
-server_script 'vMenuServer.net.dll'
+client_script 'vCharClient.net.dll'
+--server_script 'vCharServer.net.dll'
