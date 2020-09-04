@@ -21,4 +21,4 @@ files {
     'config/addons.json',
 }
 client_script 'vCharClient.net.dll'
---server_script 'vCharServer.net.dll'
+server_script 'vCharServer.net.dll'
