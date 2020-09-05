@@ -6,6 +6,7 @@ AddEventHandler('chatMessage', function(author, color, text)
         local command = split(text,' ')
         if(command[1] == '/trigger' and command[2] ~= nil) then
             --mpcreator:OpenMenu
+            print('start: '..command[2])
             TriggerEvent(command[2])
         end
     end
