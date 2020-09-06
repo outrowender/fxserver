@@ -1,4 +1,8 @@
 
+TriggerEvent('chat:addSuggestion', '/trigger', 'dispara um TriggerEvent com o parâmetro enviado', {
+    {name="amanda-pedEditor:start", help="inicia o editor de personagem"}
+})
+
 RegisterNetEvent('chatMessage')
 AddEventHandler('chatMessage', function(author, color, text)
     print('chatMessage: '..text)
