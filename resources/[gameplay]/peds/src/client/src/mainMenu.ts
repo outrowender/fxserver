@@ -1,6 +1,6 @@
 import * as NativeUI from '../../lib/nativeui/NativeUi'
 import { editorMenuBuilder } from './menu.builder'
-import { resetCamera, pointCameraToFullBody } from './camera/camera'
+import { resetCamera, pointCameraToFullBody, pointCameraToHead } from './camera/camera'
 import { stopAllAnimations } from './animations/animations'
 
 export function startMenu(close: (boolean) => void) {
@@ -20,7 +20,8 @@ export function startMenu(close: (boolean) => void) {
 }
 
 function openMenu() {
-    pointCameraToFullBody()
+    //pointCameraToFullBody()
+    pointCameraToHead()
 
     /*  currentTick = setTick(async () => {
          DisableAllControlActions(0)

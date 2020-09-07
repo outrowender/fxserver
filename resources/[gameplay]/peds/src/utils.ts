@@ -1,4 +1,4 @@
-import { Component } from "./client/src/components/components";
+import { Component } from "./client/src/types/components";
 
 export function sleep(timeout: number) {
     return new Promise(resolve => setTimeout(resolve, timeout));

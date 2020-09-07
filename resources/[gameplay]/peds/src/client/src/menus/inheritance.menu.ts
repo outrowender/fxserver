@@ -1,31 +1,38 @@
 import * as NativeUI from '../../../lib/nativeui/NativeUi'
 import { Amenu } from '../types/amenu'
 import { print } from '../../../utils'
+import { daddies, mothers } from '../resources/parents'
+import { setPlayerinheritance } from '../controllers/inheritance.controller'
+
+print('carrega o menu1')
 
 export function inheritanceMenuBuilder(): Amenu {
+
+    const shapeRange = [.1, .2, .3, .4, .5, .6, .7, .8, .9, 1]
+
     const item = new NativeUI.UIMenuItem('Parentesco', 'Selecione o herança genética do seu personagem')
     const menu = new NativeUI.Menu('Parentesco', 'Herança genética', new NativeUI.Point(50, 50))
 
-    const dadItem = new NativeUI.UIMenuListItem('Pai', 'Pai do personagem',
-        new NativeUI.ItemsCollection(['Sua', 'admin', 'puto'])
-    )
-    menu.AddItem(dadItem)
+    const momItem = new NativeUI.UIMenuListItem('Mãe', 'Mãe do personagem', new NativeUI.ItemsCollection(mothers))
+    const dadItem = new NativeUI.UIMenuListItem('Pai', 'Pai do personagem', new NativeUI.ItemsCollection(daddies))
+    const faceShape = new NativeUI.UIMenuSliderItem('Formato do rosto', shapeRange, 0, 'Deixa mais parecido com a mãe ou o pai', true)
+    const bodyShape = new NativeUI.UIMenuSliderItem('Cor da pele', shapeRange, 0, 'Deixa mais parecido com a mãe ou o pai', true)
 
-    const momItem = new NativeUI.UIMenuListItem('Mãe', 'Mãe do personagem',
-        new NativeUI.ItemsCollection(['Sua', 'admin', 'puta'])
-    )
     menu.AddItem(momItem)
-
-    const faceShape = new NativeUI.UIMenuSliderItem('Formato do rosto', [0, 1, 2, 3, 4], 2, 'Deixa mais parecido com a pai ou a mãe', true)
+    menu.AddItem(dadItem)
     menu.AddItem(faceShape)
-
-    const bodyShape = new NativeUI.UIMenuSliderItem('Formato do corpo', [0, 1, 2, 3, 4], 2, 'Deixa mais parecido com a pai ou a mãe', true)
     menu.AddItem(bodyShape)
 
     item.RightBadge = NativeUI.BadgeStyle.ArrowRight
     item.Enabled = true
 
-    menu.ListChange.on((item: NativeUI.UIMenuListItem) => print('mudou heranca'))
+    menu.ListChange.on((item: NativeUI.UIMenuListItem) => {
+        setPlayerinheritance(momItem.Index, dadItem.Index, shapeRange[faceShape.Index], shapeRange[bodyShape.Index])
+    })
+
+    menu.SliderChange.on((item: NativeUI.UIMenuSliderItem) => {
+        setPlayerinheritance(momItem.Index, dadItem.Index, shapeRange[faceShape.Index], shapeRange[bodyShape.Index])
+    })
 
     return { menu, item }
 }

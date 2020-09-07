@@ -1,5 +1,5 @@
 import { sleep, setPedComponent } from "../../../utils"
-import { Component } from "../components/components"
+import { Component } from "../types/components"
 
 export async function setCharacterGender(gender: string) {
 

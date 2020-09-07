@@ -1,0 +1,2 @@
+export const mothers = ['Misty', 'Natalie', 'Ashley', 'Ava', 'Camila', 'Olivia', 'Audrey', 'Sophia', 'Giselle', 'Charlotte', 'Evelyn', 'Amelia', 'Violet', 'Brianna', 'Nicole', 'Hannah', 'Elizabeth', 'Grace', 'Zoe', 'Jasmine', 'Emma', 'Isabella']
+export const daddies = ['Andrew', 'Gabriel', 'Kevin', 'Claude', 'Vincent', 'Alex', 'Anthony', 'Angel', 'Joshua', 'Evan', 'Benjamin', 'Samuel', 'Ethan', 'Juan', 'Adrian', 'Michael', 'Diego', 'John', 'Isaac', 'Daniel', 'Santiago', 'Noah', 'Niko', 'Louis']
