@@ -1,4 +1,4 @@
-import { f } from "../../utils"
+import { f } from "../../../utils"
 
 export function resetCamera() {
     RenderScriptCams(false, true, 1000, false, false)

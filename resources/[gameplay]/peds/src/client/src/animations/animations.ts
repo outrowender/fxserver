@@ -1,4 +1,4 @@
-import { f } from "../../utils";
+import { f } from "../../../utils";
 
 export function stopAllAnimations() {
     ClearPedTasks(PlayerPedId())

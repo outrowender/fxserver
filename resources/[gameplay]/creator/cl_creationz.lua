@@ -1,7 +1,3 @@
-
-
-
-
 local setCamera = false
 
 
