@@ -7,7 +7,6 @@ import { setPlayerinheritance } from '../controllers/inheritance.controller'
 print('carrega o menu1')
 
 export function inheritanceMenuBuilder(): Amenu {
-
     const shapeRange = [.1, .2, .3, .4, .5, .6, .7, .8, .9, 1]
 
     const item = new NativeUI.UIMenuItem('Parentesco', 'Selecione o herança genética do seu personagem')
@@ -26,13 +25,13 @@ export function inheritanceMenuBuilder(): Amenu {
     item.RightBadge = NativeUI.BadgeStyle.ArrowRight
     item.Enabled = true
 
-    menu.ListChange.on((item: NativeUI.UIMenuListItem) => {
+    menu.ListChange.on((item: NativeUI.UIMenuListItem) =>
         setPlayerinheritance(momItem.Index, dadItem.Index, shapeRange[faceShape.Index], shapeRange[bodyShape.Index])
-    })
+    )
 
-    menu.SliderChange.on((item: NativeUI.UIMenuSliderItem) => {
+    menu.SliderChange.on((item: NativeUI.UIMenuSliderItem) =>
         setPlayerinheritance(momItem.Index, dadItem.Index, shapeRange[faceShape.Index], shapeRange[bodyShape.Index])
-    })
+    )
 
     return { menu, item }
 }

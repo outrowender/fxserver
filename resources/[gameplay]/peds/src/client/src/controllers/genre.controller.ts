@@ -1,5 +1,6 @@
-import { sleep, setPedComponent } from "../../../utils"
+import { sleep } from "../../../utils"
 import { Component } from "../types/components"
+import { setPedComponent } from "./apearence.controller"
 
 export async function setCharacterGender(gender: string) {
 

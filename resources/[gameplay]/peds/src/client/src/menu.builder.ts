@@ -1,6 +1,6 @@
 import { Amenu } from './types/amenu'
 
-import { genderMenuBuilder } from './menus/genre.menu'
+import { genderMenuBuilder } from './menus/gender.menu'
 import { inheritanceMenuBuilder } from './menus/inheritance.menu'
 import { apearenceMenuBuilder } from './menus/apearence.menu'
 import { facialExpressionsMenuBuilder } from './menus/facialExpressions.menu'
