@@ -29,7 +29,7 @@ export interface ComponentVariation {
 
 declare global {
     interface Array<T> {
-        toIndexLabel(): string[];
+        toIndexedLabel(): string[];
     }
 
     interface Number {
@@ -37,7 +37,7 @@ declare global {
     }
 }
 
-Array.prototype.toIndexLabel = function () {
+Array.prototype.toIndexedLabel = function () {
     const _self = this as any[]
     return _self.map((x, i) => `#${i + 1}/${_self.length}`)
 }

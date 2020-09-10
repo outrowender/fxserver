@@ -1,0 +1,13 @@
+export const blemishesCount = 23 + 1
+export const facialHairCount = 28 + 1
+export const eyebrowsCount = 33 + 1
+export const ageingCount = 14 + 1
+export const makeupCount = 74 + 1
+export const blushCount = 6 + 1
+export const complexionCount = 11 + 1
+export const sunDamageCount = 10 + 1
+export const lipstickCount = 9 + 1
+export const molesFrecklesCount = 17 + 1
+export const chestHairCount = 16 + 1
+export const bodyBlemishesCount = 11 + 1
+export const addBodyBlemishesCount = 1 + 1

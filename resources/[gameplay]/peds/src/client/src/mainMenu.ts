@@ -3,7 +3,7 @@ import { editorMenuBuilder } from './menu.builder'
 import { resetCamera, pointCameraToFullBody, pointCameraToHead } from './camera/camera'
 import { stopAllAnimations } from './animations/animations'
 
-export function startMenu(close: (boolean) => void) {
+export function startMenu() {
 
     const menu = new NativeUI.Menu("Ped Editor", "outrowender", new NativeUI.Point(50, 50))
 
